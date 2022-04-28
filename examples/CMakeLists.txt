@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 
-include(${CMAKE_SOURCE_DIR}/cmake/openssl.cmake)
+include(${PROJECT_SOURCE_DIR}/cmake/openssl.cmake)
 find_libcrypto()
 
 add_definitions (-DDEFAULT_CONNECTOR_URL="${DEFAULT_CONNECTOR_URL}")

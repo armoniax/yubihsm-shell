@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 
-include(${CMAKE_SOURCE_DIR}/cmake/openssl.cmake)
+include(${PROJECT_SOURCE_DIR}/cmake/openssl.cmake)
 find_libcrypto()
 
 set (
@@ -29,7 +29,7 @@ set (
 
 if(WIN32)
   set(SOURCE ${SOURCE} cmdline.c)
-  include(${CMAKE_SOURCE_DIR}/cmake/getopt.cmake)
+  include(${PROJECT_SOURCE_DIR}/cmake/getopt.cmake)
   find_getopt()
 else(WIN32)
   include(gengetopt)

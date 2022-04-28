@@ -26,7 +26,7 @@ project (yubihsm-shell)
 option(BUILD_ONLY_LIB "Library only build" OFF)
 option(SUPRESS_MSVC_WARNINGS "Suppresses a lot of the warnings when compiling with MSVC" ON)
 
-include(${CMAKE_SOURCE_DIR}/cmake/SecurityFlags.cmake)
+include(${PROJECT_SOURCE_DIR}/cmake/SecurityFlags.cmake)
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/cmake/")
 
@@ -142,7 +142,7 @@ else()
   set (CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wno-format-zero-length")
   set (CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wno-missing-braces")
   set (CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wno-missing-field-initializers")
-  
+
   include(CheckFunctionExists)
 
   check_function_exists(memset_s HAVE_MEMSET_S)
@@ -164,7 +164,7 @@ else()
       set (LIBCRYPTO_VERSION "1.1.1")
     endif()
   else()
-    include(${CMAKE_SOURCE_DIR}/cmake/openssl.cmake)
+    include(${PROJECT_SOURCE_DIR}/cmake/openssl.cmake)
     find_libcrypto()
   endif()
   if(NOT BUILD_ONLY_LIB)
@@ -219,18 +219,18 @@ add_custom_target (
   COMMAND cppcheck
   --enable=warning,style,unusedFunction,missingInclude
   --template="[{severity}][{id}] {message} {callstack} \(On {file}:{line}\)"
-  -i ${CMAKE_SOURCE_DIR}/src/cmdline.c
-  -i ${CMAKE_SOURCE_DIR}/pkcs11/cmdline.c
+  -i ${PROJECT_SOURCE_DIR}/src/cmdline.c
+  -i ${PROJECT_SOURCE_DIR}/pkcs11/cmdline.c
   --verbose
   --quiet
-  ${CMAKE_SOURCE_DIR}/lib ${CMAKE_SOURCE_DIR}/src ${CMAKE_SOURCE_DIR}/pkcs11
+  ${PROJECT_SOURCE_DIR}/lib ${PROJECT_SOURCE_DIR}/src ${PROJECT_SOURCE_DIR}/pkcs11
   )
 
 set(ARCHIVE_NAME ${CMAKE_PROJECT_NAME}-${yubihsm_shell_VERSION_MAJOR}.${yubihsm_shell_VERSION_MINOR}.${yubihsm_shell_VERSION_PATCH})
 add_custom_target (
   dist
   COMMAND git archive --prefix=${ARCHIVE_NAME}/ HEAD | gzip > ${CMAKE_BINARY_DIR}/${ARCHIVE_NAME}.tar.gz
-  WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
   )
 
 coverage_evaluate()

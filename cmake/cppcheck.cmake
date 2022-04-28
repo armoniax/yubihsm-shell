@@ -41,7 +41,7 @@ macro (add_cppcheck_target _cc_target _cc_directories _cc_ignore)
     --quiet
     ${_cc_extra_input}
     #"${_cc_abs_directories}"
-    ${CMAKE_SOURCE_DIR}
+    ${PROJECT_SOURCE_DIR}
 #"${xxx}"
 #VERBATIM
     )
